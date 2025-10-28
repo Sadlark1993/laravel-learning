@@ -1,9 +1,11 @@
-import { Head } from '@inertiajs/react';
-
 export default function About() {
     return (
         <>
-            <Head></Head>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+            </nav>
             <h1>About Page</h1>
         </>
     );
