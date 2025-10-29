@@ -1,20 +1,11 @@
-import { Head } from '@inertiajs/react';
+import Layout from '@/components/Layout';
 
 export default function Home() {
     return (
         <>
-            <Head title="Home">
-                <link rel="preconnect" href="https://fonts.bunny.net" />
-                <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-            </Head>
-            <div>
-                <nav>
-                    <a href="/">Home</a>
-                    <a href="/about">About</a>
-                    <a href="/contact">Contact</a>
-                </nav>
+            <Layout name="Home">
                 <h1>Home page</h1>
-            </div>
+            </Layout>
         </>
     );
 }

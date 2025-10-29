@@ -1,12 +1,9 @@
+import Layout from '@/components/Layout';
+
 export default function About() {
     return (
-        <>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-            </nav>
+        <Layout name="About us">
             <h1>About Page</h1>
-        </>
+        </Layout>
     );
 }
