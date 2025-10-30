@@ -1,5 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { usePage } from '@inertiajs/react';
 import { ReactNode } from 'react';
 
 interface LayoutProps {
@@ -32,12 +33,12 @@ const user = {
     imageUrl:
         'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 };
-const navigation = [
-    { name: 'Home', href: '/', current: true },
-    { name: 'About', href: '/about', current: false },
-    { name: 'Contact', href: '/contact', current: false },
-    // { name: 'Calendar', href: '#', current: false },
-    // { name: 'Reports', href: '#', current: false },
+const navigationItems = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+    // { name: 'Calendar', href: '#' },
+    // { name: 'Reports', href: '#' },
 ];
 const userNavigation = [
     { name: 'Your profile', href: '#' },
@@ -50,6 +51,14 @@ function classNames(...classes: string[]) {
 }
 
 export default function Example({ children, name }: LayoutProps) {
+    const { url } = usePage();
+
+    // Create navigation with current page detection
+    const navigation = navigationItems.map((item) => ({
+        ...item,
+        current: url === item.href,
+    }));
+
     return (
         <>
             {/*
@@ -172,7 +181,7 @@ export default function Example({ children, name }: LayoutProps) {
                     </div>
                 </header>
                 <main>
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{children}</div>
+                    <div className="mx-auto max-w-7xl px-4 py-6 text-white sm:px-6 lg:px-8">{children}</div>
                 </main>
             </div>
         </>
