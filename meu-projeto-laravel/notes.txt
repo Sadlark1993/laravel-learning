@@ -1,0 +1,32 @@
+// ############## runs the laravel project ###################
+php artisan serve
+
+// ############## runs the react project in dev mode ###############
+npm run dev
+
+// ############## executs php laravel code ###################
+php artisan tinker
+
+// now I'm just gonna play arround with Eloquent library
+App\Models\Job::create(['title' => 'Acme Director', 'salary' => '$1,000,000']);
+App\Models\Job::all()
+App\Models\Job::find(3);
+
+$job = App\Models\Job::find(34);
+echo $job->salary;
+$job->delete(); // deletes the record
+
+// ##################### ARTISAN ###############################
+
+// creating a model
+artisan make:model Comment
+
+
+php artisan help make:model
+// creates the model and the migration
+php artisan make:model Post -m
+// after this, you can edit the migration and then, migrate
+php artisan migrate
+
+// seeding a model. It must have a seeder and a proper factory.
+php artisan db:seed --class=PersonSeeder
