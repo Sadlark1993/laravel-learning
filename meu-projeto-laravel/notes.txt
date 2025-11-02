@@ -48,7 +48,7 @@ App\Models\User::factory()->unverified()->create();
 
 
 // creating a model with migration and factory
- php artisan make:model Employer -m -f
+ php artisan make:model Employer -mf
 
  // for the factories, if you want several models to be related to a single model (onte to many),
  // you can use the method recicle.

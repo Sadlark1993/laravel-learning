@@ -15,4 +15,10 @@ class Job extends Model
 
     // setting the mass fillable attributes
     protected $fillable = ['title', 'salary'];
+
+    // to get the relationship, call it as a property, not a method
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class);
+    }
 }
