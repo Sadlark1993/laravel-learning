@@ -18,6 +18,9 @@ $job->delete(); // deletes the record
 
 // ##################### ARTISAN ###############################
 
+// rebuilds the database, deleting all data in it
+php artisan migrate:fresh
+
 // creating a model
 artisan make:model Comment
 
@@ -28,5 +31,24 @@ php artisan make:model Post -m
 // after this, you can edit the migration and then, migrate
 php artisan migrate
 
+// using a factory
+php artisan tinker
+App\Models\Person::factory()->create();
+App\Models\Person::factory(10)->create();
+
+//making a factory
+php artisan make:factory JobFactory
+
+
 // seeding a model. It must have a seeder and a proper factory.
 php artisan db:seed --class=PersonSeeder
+
+// creating records with specific state
+App\Models\User::factory()->unverified()->create();
+
+
+// creating a model with migration and factory
+ php artisan make:model Employer -m -f
+
+ // for the factories, if you want several models to be related to a single model (onte to many),
+ // you can use the method recicle.
