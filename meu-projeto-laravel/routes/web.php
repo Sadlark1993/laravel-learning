@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employer;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -8,19 +9,33 @@ Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');
 
+// ########################## JOBS ROUTE ##########################
+
 Route::get('/jobs/', function () {
-    return Inertia::render('jobs', [
+    return Inertia::render('job/index', [
         'jobs' => Job::with('employer')->paginate(12),
     ]);
 })->name('jobs');
 
+Route::get('/jobs/create', function () {
+    return Inertia::render('job/create', [
+        'employers' => Employer::all(),
+    ]);
+})->name('NewJob');
+
 Route::get('/jobs/{id}', function ($id) {
     $job = Job::with('employer')->find($id);
 
-    return Inertia::render('job', [
+    return Inertia::render('job/show', [
         'job' => $job,
     ]);
 })->name('job');
+
+Route::post('/jobs', function () {
+    dd('Hello from the post request');
+});
+
+// ####################################################
 
 Route::get('/contact', function () {
     return Inertia::render('contact');
