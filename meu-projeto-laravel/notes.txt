@@ -52,3 +52,14 @@ App\Models\User::factory()->unverified()->create();
 
  // for the factories, if you want several models to be related to a single model (onte to many),
  // you can use the method recicle.
+
+ //to attach a record to another:
+php artisan tinker
+$tag = App\Models\Tag::first();
+$tag->jobs()->attach(7);
+
+//re run the query
+ $tag->jobs()->get();
+
+// gets the array of the titles of the jobs
+$tag->jobs()->get()->pluck('title');
