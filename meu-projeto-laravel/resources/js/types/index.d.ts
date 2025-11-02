@@ -19,3 +19,20 @@ export interface User {
   updated_at: string;
   [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Employer {
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Job {
+  id: number;
+  title: string;
+  salary: string;
+  employer_id?: number;
+  employer?: Employer;
+  created_at: string;
+  updated_at: string;
+}

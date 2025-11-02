@@ -10,12 +10,12 @@ Route::get('/', function () {
 
 Route::get('/jobs/', function () {
     return Inertia::render('jobs', [
-        'jobs' => Job::all(),
+        'jobs' => Job::with('employer')->get(),
     ]);
 })->name('jobs');
 
 Route::get('/jobs/{id}', function ($id) {
-    $job = Job::find($id);
+    $job = Job::with('employer')->find($id);
 
     return Inertia::render('job', [
         'job' => $job,

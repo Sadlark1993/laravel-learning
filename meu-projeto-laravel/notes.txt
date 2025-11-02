@@ -63,3 +63,18 @@ $tag->jobs()->attach(7);
 
 // gets the array of the titles of the jobs
 $tag->jobs()->get()->pluck('title');
+
+
+
+// ################# Disabling lazy loading from db #################
+// you can do it (if you want) by editing the file app/Providers/AppServiceProvider.php:
+
+/**
+    * Bootstrap any application services.
+    */
+public function boot(): void
+{
+    Model::preventLazyLoading();
+}
+
+// if you do it, when your code atempt to lazy load, it will throw an error.
