@@ -1,17 +1,16 @@
 import Layout from '@/components/Layout';
-import { Employer } from '@/types';
+import { Job } from '@/types';
 import { router } from '@inertiajs/react';
 import { FormEvent, useState } from 'react';
 
-interface CreateJobProps {
-  employers: Employer[];
+interface EditJobProps {
+  job: Job;
 }
 
-const Create = ({ employers }: CreateJobProps) => {
+const Edit = ({ job }: EditJobProps) => {
   const [formData, setFormData] = useState({
-    title: '',
-    salary: '',
-    employer_id: '',
+    title: job.title,
+    salary: job.salary,
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -22,7 +21,7 @@ const Create = ({ employers }: CreateJobProps) => {
     setProcessing(true);
     setErrors({});
 
-    router.post('/jobs', formData, {
+    router.patch(`/jobs/${job.id}`, formData, {
       onError: (errors) => {
         setErrors(errors);
         setProcessing(false);
@@ -30,6 +29,13 @@ const Create = ({ employers }: CreateJobProps) => {
       onSuccess: () => {
         setProcessing(false);
       },
+    });
+  };
+
+  const handleDelete = (e: FormEvent) => {
+    e.preventDefault();
+    router.delete(`/jobs/${job.id}`, {
+      onSuccess: () => {},
     });
   };
 
@@ -101,41 +107,30 @@ const Create = ({ employers }: CreateJobProps) => {
               {errors.salary && <p className="mt-1 text-sm text-red-600">{errors.salary}</p>}
             </div>
 
-            {/* Employer Field */}
-            <div>
-              <label htmlFor="employer_id" className="mb-1 block text-sm font-medium text-gray-700">
-                Employer *
-              </label>
-              <select
-                id="employer_id"
-                name="employer_id"
-                value={formData.employer_id}
-                onChange={handleInputChange}
-                className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none ${
-                  errors.employer_id ? 'border-red-500' : 'border-gray-300'
-                }`}
-                required
-              >
-                <option value="">Select an employer</option>
-                {employers?.map((employer) => (
-                  <option key={employer.id} value={employer.id}>
-                    {employer.name}
-                  </option>
-                ))}
-              </select>
-              {errors.employer_id && <p className="mt-1 text-sm text-red-600">{errors.employer_id}</p>}
-            </div>
-
             {/* Submit Button */}
             <div className="pt-4">
               <button
                 type="submit"
                 disabled={processing}
-                className={`w-full rounded-md px-4 py-2 font-medium text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none ${
+                className={`w-full cursor-pointer rounded-md px-4 py-2 font-medium text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none ${
                   processing ? 'cursor-not-allowed bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
                 }`}
               >
-                {processing ? 'Creating...' : 'Create Job'}
+                {processing ? 'Processing...' : 'Save'}
+              </button>
+            </div>
+
+            {/* Delete Button */}
+            <div className="pt-4">
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={processing}
+                className={`w-full rounded-md px-4 py-2 font-medium text-white focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none ${
+                  processing ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-red-600 hover:bg-red-700'
+                }`}
+              >
+                {processing ? 'Processing...' : 'Delete'}
               </button>
             </div>
           </form>
@@ -154,4 +149,4 @@ const Create = ({ employers }: CreateJobProps) => {
   );
 };
 
-export default Create;
+export default Edit;

@@ -14,7 +14,9 @@ class Job extends Model
     protected $table = 'job_listings';
 
     // setting the mass fillable attributes
-    protected $fillable = ['title', 'salary'];
+    // protected $fillable = ['title', 'salary', 'employer_id'];
+
+    protected $guarded = [];
 
     // to get the relationship, call it as a property, not a method
     public function employer()

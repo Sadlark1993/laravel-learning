@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Employer;
-use App\Models\Job;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -11,29 +10,27 @@ Route::get('/', function () {
 
 // ########################## JOBS ROUTE ##########################
 
-Route::get('/jobs/', function () {
-    return Inertia::render('job/index', [
-        'jobs' => Job::with('employer')->paginate(12),
-    ]);
-})->name('jobs');
+// Route::get('/jobs/', [JobController::class, 'index'])->name('jobs');
+// Route::get('/jobs/create', [JobController::class, 'create'])->name('NewJob');
+// Route::get('/jobs/{job}', [JobController::class, 'show'])->name('job');
+// Route::post('/jobs', [JobController::class, 'store']);
+// Route::get('/jobs/{id}/edit', [JobController::class, 'edit']);
+// Route::patch('/jobs/{id}', [JobController::class, 'update']);
+// Route::delete('/jobs/{id}', [JobController::class, 'destroy']);
 
-Route::get('/jobs/create', function () {
-    return Inertia::render('job/create', [
-        'employers' => Employer::all(),
-    ]);
-})->name('NewJob');
+// grouping the controller
+// Route::controller(JobController::class)->group(function () {
+//     Route::get('/jobs/', 'index')->name('jobs');
+//     Route::get('/jobs/create', 'create')->name('NewJob');
+//     Route::get('/jobs/{job}', 'show')->name('job');
+//     Route::post('/jobs', 'store');
+//     Route::get('/jobs/{id}/edit', 'edit');
+//     Route::patch('/jobs/{id}', 'update');
+//     Route::delete('/jobs/{id}', 'destroy');
+// });
 
-Route::get('/jobs/{id}', function ($id) {
-    $job = Job::with('employer')->find($id);
-
-    return Inertia::render('job/show', [
-        'job' => $job,
-    ]);
-})->name('job');
-
-Route::post('/jobs', function () {
-    dd('Hello from the post request');
-});
+// using the laravel resource
+Route::resource('jobs', JobController::class);
 
 // ####################################################
 
@@ -70,3 +67,10 @@ Route::get('/blog/{year}/{month}', function ($year, $month) {
         'title' => "Blog Archive for {$month}/{$year}",
     ]);
 })->name('blog.archive');
+
+// getting an entity by a specific attribute
+// route::get('/posts/{post:sLug}', function (Post $post) {
+//     return Inertia::render('posts/index', [
+//         'post' => $post,
+//     ]);
+// });

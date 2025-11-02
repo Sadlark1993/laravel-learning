@@ -2,6 +2,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton } from 
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { usePage } from '@inertiajs/react';
 import { ReactNode } from 'react';
+import ButtonLink from './ButtonLink';
 import NavLink from './NavLink';
 
 interface LayoutProps {
@@ -90,6 +91,7 @@ export default function Example({ children, name }: LayoutProps) {
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
+                  <ButtonLink href="/jobs/create">Create Job</ButtonLink>
                   <button
                     type="button"
                     className="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
